@@ -1,0 +1,5 @@
+# Graph Algorithms
+
+Most of the graph algorithms on the platform can work with two modes of input. They have a basic graph reader that can handle .gml files and you can also pass in adjacency lists in the form of Map<String,String[]> edgeMap or Map<String, Map<String, Double>>. Please refer to specific algorithm’s description pages for more details. If you have data in any other format, please search the site for a converter, and if none is there to be found, please get in touch (or implement one!).
+
+Depending on the algorithm, there may be some requirements on the type of the graph input. The most specialized versions would be Directed and Weighted, Undirected and Weighted, Directed but not Weighted, Undirected and not Weighted. If the requirements of the algorithm are not too specific, algorithms read the data in the most relaxed way (e.g. if it does not matter whether the graphs is weighted or not) automatically. 
