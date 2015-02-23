@@ -8,24 +8,32 @@ This is of course an extremely complex problem but a few good tools will get you
 
 One of the easier questions to ask  is  “is traffic increasing or decreasing over time?” You can answer this approximately and very quickly by running your time series through TimeSeriesSummary. This calculates a bunch of basic empirical statistics (using Apache Commons Math), including mean, min, max, variance, standard deviation, and others. Most pertinent to the question at hand though, are the parameters of the linear model the algorithm fits to the data, the slope and correlation. A positive slope means an increasing trend, a negative one means decreasing, and close to zero means it isn’t changing much. Correlation gives you an idea how well the data fits the linear trend and variance/standard deviation will give you an idea how scattered the data is overall. The exact interpretation of these statistics is of course dependent on your particular problem.
 
+```
 curl -X POST -d '[0.0,0.99,2.1,3.0,3.8]' -H 'Content-Type: application/json' -H 'Authorization: <your api key>' http://api.algorithmia.com/api/TimeSeries/TimeSeriesSummary
-
+```
+```
 {"max":3.8,"var":2.3169199999999996,"geometricMean":0.0,"populationVariance":1.8535359999999996,"slope":0.961,"kurtosis":-1.393434890760644,"min":0.0,"correlation":0.9982466760726403,"intercept":0.05600000000000023,"mean":1.978,"rmse":0.08058535847162314,"skewness":-0.18733140947198368,"standardDeviation":1.522143225849657}
-
+```
 
 Often, we will want to remove the linear trend, either to expose deviations from the trend, or prepare the data for the next step of analysis. This is particularly important for seasonality analysis (discussed below), as these methods tend to behave badly on data that isn’t detrended.
 
+```
 curl -X POST -d '[0.1,0.9,1.8,3.0,4.1,5.2]' -H 'Content-Type: application/json' -H ‘<your API key>’' http://api.algorithmia.com/api/TimeSeries/LinearDetrend
-
+```
+```
 [0.1761904761904765,-0.060952380952380605,-0.1980952380952377,-0.035238095238094694,0.027619047619047585,0.09047619047619075]
+```
 
 There are other kinds of patterns that frequently occur in time series, such as periodic variation. This can occur over many scales, time of day (for instance, high at noon, low at midnight), day of the week (entertainment related sites might see high traffic on the weekends and lower traffic on weekdays), time of year (online retailers see an uptick around the holidays), or even longer time intervals like two-year election cycles (news sites). One of the simplest ways to detect seasonality is to produce an autocorrelation plot of a signal, which you can produce with /kenny/AutoCorrelate. See the algorithm page for more details of how to use the algorithm and interpret the results.
 
 To remove this periodic variation, either a specific period that you designate or just the strongest periodic signals detected automatically, use /TimeSeries/RemoveSeasonality. The algorithm has a number of options, the most useful of which is “topNPeriods”, which removes the top N strongest periods detected in a signal. In this case, we use the other argument to set N to 1, so we remove only the dominant period.
 
+```
 curl -X POST -d '[[1,2,1,2,1,2,1,2,1,2],1,"topNPeriods"]' -H 'Content-Type: application/json' -H '<your api key>' http://api.algorithmia.com/api/TimeSeries/RemoveSeasonality
-
+```
+```
 [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+```
 
 This is a somewhat artificially pristine time series with a period of 2, which is detected and removed perfectly. The values of the returned series should be interpreted as residuals, that is, this difference from what would be expected given knowledge of the periodic signal.
 
