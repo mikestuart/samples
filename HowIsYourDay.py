@@ -47,7 +47,6 @@ def gimme_your_verdict(cuss_index, analysisResult):
 	print "Come back tomorrow!"    
     
 if __name__ == '__main__':
-	import urllib2, json
 	print "Come estas amigo?"
 	sentiment = str(raw_input("How was your day? Swearing is allowed , even encouraged: "))
 	cuss_index = get_cuss_index(sentiment)
