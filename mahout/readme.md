@@ -33,5 +33,5 @@ We have also included Mahout’s [recommendation] functionality. Recommendation 
 Create a data folder called Recommender, modify the curl command below with your username and your api key.
 
 ```
-curl -X POST -d '["data://mahout/Recommender/movies.csv","data://<your username>/Recommender/demoRec.txt","user"]' -H 'Content-Type: application/json' -H 'Authorization: <your api key>' http://api.algorithmia.com/api/mahout/Recommendation
+curl -X POST -d '["data://mahout/Recommender/moviesMedium.csv","data://<your username>/Recommender/demoRec.txt","user"]' -H 'Content-Type: application/json' -H 'Authorization: <your api key>' http://api.algorithmia.com/api/mahout/Recommendation
 ```
