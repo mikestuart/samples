@@ -4,10 +4,10 @@ Most of the graph algorithms on the platform can work with two modes of input. T
 
 Depending on the algorithm, there may be some requirements on the type of the graph input. The most specialized versions would be Directed and Weighted, Undirected and Weighted, Directed but not Weighted, Undirected and not Weighted. If the requirements of the algorithm are not too specific, algorithms read the data in the most relaxed way (e.g. if it does not matter whether the graphs is weighted or not) automatically. 
 
-Here is a code sample in Java, for calling [Minimum Spanning Tree algorithm](https://algorithmia.com/algorithms/graph/JKruskalMinimumSpanningTree):
+Here is a code sample in Java, for calling [Minimum Spanning Tree algorithm](https://algorithmia.com/algorithms/graph/JKruskalMinimumSpanningTree). Note that this code depends on [Gson](https://code.google.com/p/google-gson/) and [Apache Commons](https://commons.apache.org/proper/commons-io/apidocs/org/apache/commons/io/IOUtils.html) libraries.
 
 ```
-URL url = new URL("http://api.algorithmia.com/api/graph/JKruskalMinimumSpanningTree");
+		URL url = new URL("http://api.algorithmia.com/api/graph/JKruskalMinimumSpanningTree");
         URLConnection urlConnection = url.openConnection();
         urlConnection.setDoInput(true);
         urlConnection.setDoOutput(true);
