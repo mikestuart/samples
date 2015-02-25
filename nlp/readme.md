@@ -1,6 +1,10 @@
 # NLP
 
-Natural Language Processing is a body of research concerned with extracting meaning from language, usually in the form of text. We have made available some of the most popular open source software for processing natural language text, including most of Stanford’s CoreNLP and Apache’s OpenNLP, in addition to a few other tools. These algorithms are collected under usernames StanfordNLP, ApacheOpenNLP, and nlp
+[StanfordNLP]: https://algorithmia.com/users/StanfordNLP
+[ApacheOpenNLP]: https://algorithmia.com/users/ApacheOpenNLP
+[nlp]: https://algorithmia.com/users/nlp
+
+Natural Language Processing is a body of research concerned with extracting meaning from language, usually in the form of text. We have made available some of the most popular open source software for processing natural language text, including most of Stanford’s CoreNLP and Apache’s OpenNLP, in addition to a few other tools. These algorithms are collected under usernames [StanfordNLP] [], [ApacheOpenNLP] [], and [nlp] [].
 
 Many of these tools are concerned simply with putting the text into an easier to use form, like splitting it into sentences, splitting sentences into words (or tokens, as they are more commonly known), and reducing words to their lemmas (simplified forms).
 
@@ -13,8 +17,8 @@ curl -X POST -d '"The dog chased the ball"' -H 'Content-Type: application/json' 
 ```
 [["DT","NN","VBD","DT","NN"]]
 ```
-
-Note this uses the grammar labelling conventions of the Penn Treebank, see the page for /StanfordNLP/POSTagger to learn more.
+[POSTagger]: https://algorithmia.com/algorithms/StanfordNLP/POSTagger
+Note this uses the grammar labelling conventions of the Penn Treebank, read the documentation for the StanfordNLP [POSTagger] [] to learn more.
 
 There are also tools to identify the types of entities referred to in a text.
 
