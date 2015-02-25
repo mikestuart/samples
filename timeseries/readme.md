@@ -4,7 +4,9 @@ A lot of data comes in the form of real-valued signal that vary in time - stock 
 
 More often than not, interesting applications will require several stages of processing and analysis. For instance, suppose you have a bunch of data on traffic to a major website, and wish to understand what influences traffic to this site. Perhaps you want to figure it out in order to do better server provisioning, or you’re trying to determine if an advertising campaign actually increased traffic. 
 
-This is of course an extremely complex problem but a few good tools will get you a long way. A full dataset for this problem won’t be terribly cooperative with copy paste, so where possible, we’ll use a toy time series to illustrate the relevant algorithm.
+[TimeSeries]: https://algorithmia.com/users/TimeSeries
+
+This is of course an extremely complex problem but a few good tools will get you a long way. We've put some of them under the username [TimeSeries] [] A full dataset for this problem won’t be terribly cooperative with copy paste, so where possible, we’ll use a toy time series to illustrate the relevant algorithm.
 
 One of the easier questions to ask  is  “is traffic increasing or decreasing over time?” You can answer this approximately and very quickly by running your time series through TimeSeriesSummary. This calculates a bunch of basic empirical statistics (using Apache Commons Math), including mean, min, max, variance, standard deviation, and others. Most pertinent to the question at hand though, are the parameters of the linear model the algorithm fits to the data, the slope and correlation. A positive slope means an increasing trend, a negative one means decreasing, and close to zero means it isn’t changing much. Correlation gives you an idea how well the data fits the linear trend and variance/standard deviation will give you an idea how scattered the data is overall. The exact interpretation of these statistics is of course dependent on your particular problem.
 
@@ -37,8 +39,9 @@ curl -X POST -d '[[1,2,1,2,1,2,1,2,1,2],1,"topNPeriods"]' -H 'Content-Type: appl
 
 This is a somewhat artificially pristine time series with a period of 2, which is detected and removed perfectly. The values of the returned series should be interpreted as residuals, that is, this difference from what would be expected given knowledge of the periodic signal.
 
-(a lot of time series data here: https://datamarket.com/data/list/?q=cat:edb%20provider:tsdl)
-
 There are more algorithms for various form of seasonality removal, as well as for denoising and anomaly detection. The denoising algorithms are mostly moving averages, with the appropriateness of their application and the proper interpretation of their results depending very much of the specific problem being addressed. Our anomaly detection algorithms are fairly simple, detecting either thresholds exceeded, sudden jumps/dips, or values laying beyond a certain number of standard deviations beyond the rest of the data.
 
 To complete our described use case, assume that we specifically want to see if an advertising campaign influenced traffic to a website. It isn’t enough just to look at the time period the campaign was supposed to have an effect, as other components of the signal may obscure it. Instead, we detrend, then remove seasonality. Real increases will in this case become much more obvious. Alternatively, if we are doing exploratory data analysis, we can go through all the previously described procedures to characterize linear and periodic trends, then detrend, remove seasonality, and run anomaly detection algorithms to figure out where unexpected traffic occurred, starting from there to seek explanations.
+[this website]: https://datamarket.com/data/list/?q=cat:edb%20provider:tsdl
+
+If you want to play with some more substantial data, have a look at [this website] [].
