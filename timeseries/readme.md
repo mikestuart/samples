@@ -20,7 +20,7 @@ curl -X POST -d '[0.0,0.99,2.1,3.0,3.8]' -H 'Content-Type: application/json' -H 
 Often, we will want to remove the linear trend, either to expose deviations from the trend, or prepare the data for the next step of analysis. This is particularly important for seasonality analysis (discussed below), as these methods tend to behave badly on data that isn’t detrended.
 
 ```
-curl -X POST -d '[0.1,0.9,1.8,3.0,4.1,5.2]' -H 'Content-Type: application/json' -H ‘<your API key>’' http://api.algorithmia.com/api/TimeSeries/LinearDetrend
+curl -X POST -d '[0.1,0.9,1.8,3.0,4.1,5.2]' -H 'Content-Type: application/json' -H ‘Authorization: <your API key>’' http://api.algorithmia.com/api/TimeSeries/LinearDetrend
 ```
 ```
 [0.1761904761904765,-0.060952380952380605,-0.1980952380952377,-0.035238095238094694,0.027619047619047585,0.09047619047619075]
@@ -31,7 +31,7 @@ There are other kinds of patterns that frequently occur in time series, such as 
 To remove this periodic variation, either a specific period that you designate or just the strongest periodic signals detected automatically, use /TimeSeries/RemoveSeasonality. The algorithm has a number of options, the most useful of which is “topNPeriods”, which removes the top N strongest periods detected in a signal. In this case, we use the other argument to set N to 1, so we remove only the dominant period.
 
 ```
-curl -X POST -d '[[1,2,1,2,1,2,1,2,1,2],1,"topNPeriods"]' -H 'Content-Type: application/json' -H '<your api key>' http://api.algorithmia.com/api/TimeSeries/RemoveSeasonality
+curl -X POST -d '[[1,2,1,2,1,2,1,2,1,2],1,"topNPeriods"]' -H 'Content-Type: application/json' -H 'Authorization: <your api key>' http://api.algorithmia.com/api/TimeSeries/RemoveSeasonality
 ```
 ```
 [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
