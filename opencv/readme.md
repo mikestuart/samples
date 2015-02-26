@@ -1,10 +1,50 @@
-# Speech Recognition
+# OpenCV algorithms
 
-The speech recognition (SR) algorithm on the platform uses [CMU Sphinx](), an open source library. The trained models are obtained from the [SourceForge page]() and are the latest in English model. If you would like to use different models in your speech recognition task, please feel free to use this algorithm as an example. We currently have two different algorithms under the sphinx namespace. The [Adaptive SR algorithm]() takes twice as long as the generic [SR algorithm]() because it makes an effort to adapt the recognition stats to the specific speaker by “listening to” the audio twice. If you are interested in this paradigm, you can read more about it here:
+Using [OpenCV Java wrappers](https://github.com/PatternConsulting/opencv) on Algorithmia requires some setup, but nothing that will take too much time.
 
+Let's go through the step required to create your own algorithm that uses OpenCV. These requirements are not specific to our platform. First, make sure that you add the dependencies:
 
-The first input to the algorithm is the link to the media file (either a Data url that contains a sound file or a Youtube video url) and the second input to the algorithm is the collection where the extracted text should be written to (a Data collection url). 
+```
+libraryDependencies += "nu.pattern" % "opencv" % "2.4.9-7"
+```
 
-We can only process the Youtube videos that are licensed under the Creative Commons license due to the prohibitive nature of the Standard Youtube License. The algorithm runs the raw Youtube video found in the link through a pipeline of downloading it, extracting the sound, converting the sound file to the correct format and then performing SR on it. If instead of a Youtube link, a link to a file in a Data collection is given; the algorithm treats it as a sound file and just converts it to the correct format before performing SR. If you would like to upload a video file, you can preprocess it with the [sound extraction algorithm]().
+Then, to avoid encountering the "UnsatisfiedLinkError" problem, in your code, inside a static block, do:
 
-![SR Pipeline](SRpipeline.png)
+```
+nu.pattern.OpenCV.loadLocally();
+```
+
+Now you are ready to code away! Here is a [sample algorithm](https://algorithmia.com/algorithms/zskurultay/ImageSimilarity/edit). This algorithm tries to measure the similarity between two given images by using OpenCV's pattern detection algorithms. The process includes feature detection, descriptor extraction and matching. First off, reading an image into a Mat is straightforward, using [Data](http://algorithmia.com/data) api, just do:
+
+```
+private Mat readImages(String url) throws IOException{
+	    FileRef fileRef = DataAPI.get(url);
+	    File file = fileRef.file();
+        return Highgui.imread(file.getAbsolutePath(), Highgui.IMREAD_GRAYSCALE);
+}
+```
+
+Then, you are free to play with the Mats:
+
+```
+private MatOfKeyPoint detectFeatures(Mat mat) {
+	FeatureDetector featureDetector = FeatureDetector.create(FeatureDetector.SURF);
+	MatOfKeyPoint keyPoints = new MatOfKeyPoint();
+	featureDetector.detect(mat, keyPoints);
+	return keyPoints;
+}
+
+private Mat computeDescriptors(Mat mat, MatOfKeyPoint kp){
+	Mat descriptors = new Mat();
+	DescriptorExtractor descriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.SURF);
+	descriptorExtractor.compute(mat, kp, descriptors);
+	return descriptors;
+}
+
+private MatOfDMatch matchDescriptors(Mat d1, Mat d2){
+	DescriptorMatcher descriptorMatcher = DescriptorMatcher.create(DescriptorMatcher.FLANNBASED); 
+	MatOfDMatch matches = new MatOfDMatch();
+	descriptorMatcher.match(d1, d2, matches);
+	return matches;
+}
+```
