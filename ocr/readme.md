@@ -20,7 +20,7 @@ libraryDependencies += "org.scalaj" % "scalaj-http_2.11" % "1.1.4"
 	val result = Http("http://api.algorithmia.com/api/ocr/RecognizeCharacters")
 	.postData("[""data://USERNAME/SampleImages/ocrsample.tiff"",""data://USERNAME/SampleImages/recognized-text.txt""]")
     .header("Content-Type", "application/json")
-    .header("Authorization","c6ca861e50054f63a0fc74b5f845bc1a")
+    .header("Authorization","YOUR_API_KEY")
     .header("Accept","application/json")
     .option(HttpOptions.connTimeout(10000))
     .asString
