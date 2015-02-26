@@ -2,9 +2,65 @@
 
 ## Weka Classifiers
 
-The [Weka](https://algorithmia.com/users/weka) algorithms that are on the platform take in flat Json as input. It is assumed that any data that is going to be used with these algorithms will be large in size, so all interaction is done through Data collections. The classes in the Weka package that inherit from the same class call into one main algorithm that initializes the relevant subclass and handles training and evaluation. 
+[Weka](http://www.cs.waikato.ac.nz/ml/weka/) is a library of machine learning algorithms implemented in Java. The [Weka](https://algorithmia.com/users/weka) algorithms that are on Algorithmia take in flat Json as input. It is assumed that any data that is going to be used with these algorithms will be large in size, so all interaction is done through [Data](http://algorithmia.com/data) collections. The classes in the Weka package that inherit from the same class call into one [main algorithm](https://algorithmia.com/algorithms/weka/WekaClassification) that initializes the relevant subclass and handles training and evaluation. 
 
-You can look at the DigitRecognition algorithm we made for a quick demo. That algorithm takes in either a matrix or an array of doubles that represent a black and white picture. The picture is a hand-drawn digit, and we feed it to a pretrained model on the MNIST dataset that will classify which of the 10 digits this particular one is. 
+You can use the [Data](https://algorithmia.com/assets/doc/java/index.html) api to query (CollectionRef->list()) the sample training data we host under two collections: data://weka/NumericSamples and data://weka/NominalSamples.
+
+You can look at the [DigitRecognition algorithm](https://algorithmia.com/algorithms/weka/DigitRecognition) we made for a quick demo. That algorithm takes in either a matrix or an array of doubles that represent a black and white picture. The picture is a hand-drawn digit, and we feed it to a pretrained model on the MNIST dataset that will classify which of the 10 digits this particular one is. 
+
+The DigitRecognition algorithm is the algorithm that we use in our [blog post](http://algorithmia.com/blog), and the input looks like:
+
+```
+[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,255,255,255,255,255,255,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,255,255,255,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,255,255,255,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,255,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,255,255,255,255,255,255,255,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,255,255,0,0,255,255,255,255,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,255,0,0,0,255,255,255,255,255,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,255,0,0,255,255,0,0,255,255,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0,255,255,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,255,255,255,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
+```
+
+So it is actually a representation of the number 2 that we draw on the canvas. Giving this raw `double[][]` input into the DigitRecognition algorithm, we let it prepare the proper Json input for the main algorithm and call it, obtain the classification result and return it:
+
+```
+Instance inst = new Instance(1.0, newArray);
+return apply(inst);
+```
+
+```
+JsonObject mainElt = new JsonObject();
+Gson gson = new Gson();
+String elt = gson.toJson(inst);
+JsonObject obj = gson.fromJson(elt, JsonObject.class);
+mainElt.add("example",obj);
+mainElt.addProperty("trainUrl","data://weka/DigitModel/trainSmall.arff");
+mainElt.addProperty("classIndex",784);
+mainElt.addProperty("mode","single");
+mainElt.addProperty("modelUrl","data://weka/DigitModel/model50.txt");
+mainElt.addProperty("demo","handwriting");
+return Algorithmia.call("/weka/WekaClassification", mainElt, JsonObject.class);
+```
 
 A step-by-step explanation of how to train a Weka model is provided here.
 
@@ -35,57 +91,3 @@ private String type = "Logistic", mode, options, trainUrl, testUrl, modelUrl;
 As mentioned, all of the classifiers on the platform just add the type of the classifier to this information and pass it to the central Weka classifier algorithm. This allows for code reuse and easily controllable behavior.
 
 We are currently using the Weka version 3.6.11, available on Maven central. That code is licensed under [GPL 2.0](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html) and thus, all of our code is available and holds the same license.
-
-You can take a look at the DigitRecognition algorithm to see another example that is using the main Weka Classification algorithm. The DigitRecognition algorithm is the algorithm that we use in our [blog post](http://algorithmia.com/blog), and the input looks like:
-
-[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,255,255,255,255,255,255,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,255,255,255,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,255,255,255,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,255,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,255,255,255,255,255,255,255,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,255,255,0,0,255,255,255,255,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,255,0,0,0,255,255,255,255,255,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,255,0,0,255,255,0,0,255,255,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0,255,255,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,255,255,255,0,0,0,0,0,255,255,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
-
-So it is actually a representation of the number 2 that we draw on the canvas. Giving this raw `double[][]` input into the DigitRecognition algorithm, we let it prepare the proper Json input for the main algorithm and call it, obtain the classification result and return it:
-
-```
-Instance inst = new Instance(1.0, newArray);
-return apply(inst);
-```
-
-```
-JsonObject mainElt = new JsonObject();
-Gson gson = new Gson();
-String elt = gson.toJson(inst);
-JsonObject obj = gson.fromJson(elt, JsonObject.class);
-mainElt.add("example",obj);
-mainElt.addProperty("trainUrl","data://weka/DigitModel/trainSmall.arff");
-mainElt.addProperty("classIndex",784);
-mainElt.addProperty("mode","single");
-mainElt.addProperty("modelUrl","data://weka/DigitModel/model50.txt");
-mainElt.addProperty("demo","handwriting");
-return Algorithmia.call("/weka/WekaClassification", mainElt, JsonObject.class);
-```
-
-You can use the [Data](https://algorithmia.com/assets/doc/java/index.html) api to query (CollectionRef->list()) the sample training data we host under two collections: data://weka/NumericSamples and data://weka/NominalSamples.
