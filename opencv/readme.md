@@ -48,3 +48,28 @@ private MatOfDMatch matchDescriptors(Mat d1, Mat d2){
 	return matches;
 }
 ```
+
+The final code that uses the above methods looks like this:
+
+```
+public double measureSimilarity(String url1, String url2) throws IOException{
+    	double result;
+		Mat mat1 = readImages(url1);
+		Mat mat2 = readImages(url2);
+
+		MatOfKeyPoint keyPoints1 = detectFeatures(mat1);
+		MatOfKeyPoint keyPoints2 = detectFeatures(mat2);
+
+		Mat descriptors1 = computeDescriptors(mat1, keyPoints1);
+		Mat descriptors2 = computeDescriptors(mat2, keyPoints2);
+		MatOfDMatch matches = matchDescriptors(descriptors1, descriptors2);
+
+		MatOfDMatch bestMatches = extractBestMatches(matches);
+
+		result = calculateScore(bestMatches, keyPoints1, keyPoints2);
+		System.out.println(result);
+		return result;
+	}
+```
+
+You can use your own calculateScore algorithm that matches your needs best.
