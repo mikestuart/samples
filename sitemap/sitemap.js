@@ -1,11 +1,7 @@
-//
-// Algorithmia Site Crawler
-//
-
 (function() {
-  var api_key, app, colorScale, getLinks, getPageMap, graphObj, normalize, pagerank, sortMap, startViz, transformGraph, updateGraph, updateRanking;
+  var api_key, app, colorScale, getLinks, getNodes, graphObj, graphObjectToMatrix, normalize, pagerank, sortMap, startViz, updateGraph, updateRanking;
 
-  api_key = "953ee0c315874b219bd6d7ff1d4c8482";
+  api_key = "[[ALGORITHMIA API KEY GOES HERE]]";
 
   app = angular.module("algorithmia", []);
 
@@ -13,7 +9,6 @@
 
   app.controller("SiteMapControl", function($scope, $http) {
     var count, doScrape, pending;
-    // Defaults
     $scope.siteUrl = "http://wa.gov/";
     $scope.depthLimit = 20;
     $scope.siteMap = {};
@@ -125,31 +120,17 @@
         $scope.loadLink(d.name);
       });
     };
-    graphObj = Algorithmia.viz.startGraph(svg, width, height, colors, radius, clickHandler);
+    graphObj = new Algorithmia.viz.Graph(svg, width, height, colors, radius, clickHandler);
   };
 
-  // Update the visualization
-  updateGraph = function(data) {
-    var graph, key, nodes, nodeset, ranking, svg, value, values, _i, _len;
+  updateGraph = function(links) {
+    var graph, svg;
     svg = d3.select("svg.viz");
-    nodeset = {};
-    for (key in data) {
-      values = data[key];
-      nodeset[key] = true;
-      for (_i = 0, _len = values.length; _i < _len; _i++) {
-        value = values[_i];
-        nodeset[value] = true;
-      }
-    }
-    nodes = Object.keys(nodeset);
-    ranking = function(d) {
-      return -1;
-    };
     graph = {
-      nodes: nodes,
-      links: data
+      nodes: getNodes(links),
+      links: links
     };
-    graphObj.update(graph, ranking);
+    graphObj.update(graph, null);
   };
 
   updateRanking = function(ranking) {
@@ -167,13 +148,13 @@
   };
 
   pagerank = function(graph, cb) {
-    var pageMap, transformedGraph;
+    var graphMatrix, nodes;
     $("#demo-status").text("");
     $("#pagerank-out").text("");
-    pageMap = getPageMap(graph);
-    transformedGraph = transformGraph(graph, pageMap);
-    $("#pagerank-in").html("<pre>" + JSON.stringify(transformedGraph, null, 2) + "</pre>");
-    Algorithmia.query("/thatguy2048/PageRank", api_key, transformedGraph, function(error, result) {
+    nodes = getNodes(graph);
+    graphMatrix = graphObjectToMatrix(graph, nodes);
+    $("#pagerank-in").html("<pre>" + JSON.stringify(graphMatrix, null, 2) + "</pre>");
+    Algorithmia.query("/thatguy2048/PageRank", api_key, graphMatrix, function(error, result) {
       var errorSpan, i, pre, rank, ranking, _i, _len;
       if (error) {
         errorSpan = $('<span class="text-danger">').text(error);
@@ -191,7 +172,7 @@
       ranking = {};
       for (i = _i = 0, _len = result.length; _i < _len; i = ++_i) {
         rank = result[i];
-        ranking[pageMap[i]] = rank;
+        ranking[nodes[i]] = rank;
       }
       if (cb) {
         cb(ranking);
@@ -199,7 +180,7 @@
     });
   };
 
-  getPageMap = function(graph) {
+  getNodes = function(graph) {
     var link, links, page, pageMap, _i, _len;
     pageMap = [];
     for (page in graph) {
@@ -217,51 +198,27 @@
     return pageMap;
   };
 
-  transformGraph = function(graph, pageMap) {
-    var i, link, links, page, transformedGraph;
-    transformedGraph = (function() {
-      var _i, _len, _results;
-      _results = [];
-      for (_i = 0, _len = pageMap.length; _i < _len; _i++) {
-        i = pageMap[_i];
-        _results.push([]);
-      }
-      return _results;
-    })();
+  graphObjectToMatrix = function(graph, nodes) {
+    var i, links, page, transformedGraph;
+    transformedGraph = nodes.map(function() {
+      return [];
+    });
     for (page in graph) {
       links = graph[page];
-      transformedGraph[pageMap.indexOf(page)] = (function() {
-        var _i, _len, _results;
-        _results = [];
-        for (_i = 0, _len = links.length; _i < _len; _i++) {
-          link = links[_i];
-          _results.push(pageMap.indexOf(link));
-        }
-        return _results;
-      })();
+      transformedGraph[nodes.indexOf(page)] = links.map(function(link) {
+        return nodes.indexOf(link);
+      });
     }
     return transformedGraph;
   };
 
   normalize = function(data) {
-    var d, max, min, _i, _j, _len, _len1, _results;
-    min = null;
-    max = null;
-    for (_i = 0, _len = data.length; _i < _len; _i++) {
-      d = data[_i];
-      if (min === null || d < min) {
-        min = d;
-      }
-      if (max === null || d > max) {
-        max = d;
-      }
-    }
-    _results = [];
-    for (_j = 0, _len1 = data.length; _j < _len1; _j++) {
-      d = data[_j];
-      _results.push((d - min) / (max - min));
-    }
-    return _results;
+    var max, min;
+    min = Math.min.apply(Math, data);
+    max = Math.max.apply(Math, data);
+    return data.map(function(d) {
+      return (d - min) / (max - min);
+    });
   };
 
   sortMap = function(input) {

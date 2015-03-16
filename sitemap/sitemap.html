@@ -1,16 +1,15 @@
-
-
 <!DOCTYPE html>
 <html lang="en" data-ng-app="algorithmia">
   <head>
+    <meta charset="utf-8">
     <title>Site Map - Algorithmia</title>
-    <link rel="shortcut icon" href="/versioned/images/favicon-bw.png" type="image/png">
-    <link rel="apple-touch-icon" href="/versioned/images/apple-touch-icon.png">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css">
-    <link rel="stylesheet" media="screen" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
-    <link rel="stylesheet" media="screen" href="//cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.5.8/perfect-scrollbar.min.css">
-    <link rel="stylesheet" media="screen" href="//algorithmia.com/assets/stylesheets/algo.min.css">
+    <link rel="shortcut icon" href="http://algorithmia.com/assets/images/favicon-bw.png" type="image/png">
+    <link rel="apple-touch-icon" href="http://algorithmia.com/assets/images/apple-touch-icon.png">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css">
+    <link rel="stylesheet" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    <link rel="stylesheet" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.5.8/perfect-scrollbar.min.css">
+    <link rel="stylesheet" media="screen" href="http://algorithmia.com/assets/stylesheets/algo.min.css">
     <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -58,8 +57,9 @@ svg circle {
   text-align: center;
 }
 .pagerank-panel {
-  height: 250px;
+  height: 500px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .pagerank-panel table {
   width: 100%;
@@ -80,10 +80,30 @@ svg circle {
 
 .svg.viz {height: 700px; border: 1px solid #888; }
 
-.pagerank-panel {height: 400px; overflow-x: hidden;}
-
 .link-details-panel {height: 300px}
 
+.aspinner {
+  display:           inline-block;
+  height:            22px;
+  width:             22px;
+  margin:            2px;
+  position:          relative;
+  -webkit-animation: rotation 1.0s infinite linear;
+     -moz-animation: rotation 1.0s infinite linear;
+       -o-animation: rotation 1.0s infinite linear;
+          animation: rotation 1.0s infinite linear;
+  border-top:        4px solid rgba(174,174,174,.8);
+  border-right:      4px solid rgba(174,174,174,.2);
+  border-bottom:     4px solid rgba(174,174,174,.2);
+  border-left:       4px solid rgba(174,174,174,.2);
+  border-radius:     100%;
+}
+.algo-spinner {
+  visibility:         hidden;
+}
+.demo-spinner {
+  margin-bottom: -6px;
+}
 </style>
 
   <div class="well" ng-controller="SiteMapControl" id="sitemapControl">
@@ -199,17 +219,20 @@ svg circle {
       
     </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-sanitize.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-sanitize.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
 
-<script src="//algorithmia.com/assets/javascripts/algorithmia.js"></script>
+<script src="http://algorithmia.com/assets/javascripts/algorithmia.js"></script>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" type="text/javascript"></script>
-<script src="//algorithmia.com/assets/javascripts/algorithmia.d3.js" type="text/javascript"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" type="text/javascript"></script>
+<script src="http://localhost:9000/assets/javascripts/algorithmia.d3.js" type="text/javascript"></script>
+
 <script src="sitemap.js" type="text/javascript"></script>
+<!-- <script src="coffee-script.js" type="text/javascript"></script> -->
+<!-- <script src="sitemap.coffee" type="text/coffeescript"></script> -->
 
   </body>
   
