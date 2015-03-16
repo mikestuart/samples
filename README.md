@@ -14,4 +14,5 @@ https://github.com/bih/algorithmia
 -NodeJs:
 https://www.npmjs.com/package/algorithmia
 
-
+-Rust
+https://github.com/anowell/algorithmia_rust
