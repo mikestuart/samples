@@ -1,0 +1,118 @@
+<script id="fontawesome-template" type="x-tmpl-mustache">
+	<style type="text/css">
+		@font-face {
+			font-family: 'FontAwesome';
+			src: url('__PATH__fonts/fontawesome-webfont.woff2');
+			font-weight: normal;
+			font-style: normal;
+		}
+	</style>	
+</script>
+
+
+<style type="text/css">
+	.pgen-card
+	{
+		display: block;
+		border: solid 1px #FFF;
+		background-color: #FFF;
+		border-radius: 5px;
+		margin-bottom: 10px;
+		padding: 10px;
+		text-decoration: none;
+	}
+
+	.pgen-card:hover
+	{
+		border: solid 1px #CCC;
+	}
+
+	.pgen-card h4
+	{
+		color: #9963ff;
+		font-size: 16px;
+		margin: 0px;
+		margin-bottom: 2px;
+	}
+
+	.pgen-card p
+	{
+		font-size: 14px;
+		color: #AAA;
+		margin: 0px;
+	}
+
+	#pgen-loading
+	{
+		width: 310px;
+		height: 80px;
+		text-align: center;
+		color: #CCC;
+	}
+
+	#pgen-loading i
+	{
+		display: block;
+		font-size: 45px;
+		margin-bottom: 10px;
+	}
+
+	#pgen-loading span
+	{
+		display: block;
+		font-size: 14px;
+	}
+
+	#pgen-empty
+	{
+		display: none;
+		border: solid 1px #CCC;
+		background-color: #FFF;
+		border-radius: 10px;
+		margin-bottom: 10px;
+		padding: 10px;
+		text-align: center;
+		height: 40px;
+		line-height: 40px;
+		color: #AAA;
+		font-size: 14px;
+	}
+
+	#pgen-powered-by
+	{
+		text-align: right;
+		font-size: 10px;
+		color: #AAA;
+	}
+</style>
+
+<script id="pgen-recomm-template" type="x-tmpl-mustache">
+	<div id="pgen-recomm">
+		<div class="section">
+			<h3 class="section--heading">Other Users Liked</h3>
+			<!-- loading -->
+			<div id="pgen-loading">
+				<i class="fa fa-cog fa-spin"></i>
+				<span>Loading from Algorithmia</span>
+			</div>
+
+			<!-- nothing found -->
+			<div id="pgen-empty">
+				nothing to recommend yet
+			</div>
+
+			<!-- cards -->
+			<div id="pgen-cards"></div>
+
+			<!-- powered by -->
+			<div id="pgen-powered-by">Powered by <a href="https://algorithmia.com">Algorithmia</a></div>
+		</div>
+	</div>
+</script>
+
+<script id="pgen-card-template" type="x-tmpl-mustache">
+	<a class="pgen-card" href="{{url}}" title="Support = {{support}}">
+		<h4>{{name}}</h4>
+		<p>{{tagline}}</p>
+	</a>
+</script>

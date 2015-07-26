@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Mining Product Hunt - Collusion Detection Demo</title>
+    
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/collusion.css">
+    
+  </head>
+  <body>
+
+    <div id="container">
+
+      <div id="demo" class="box">
+        <h2>Voting Collusion</h2>
+
+        <!-- loading screen -->
+        <div class="demo-loading">
+        	<i class="fa fa-cog fa-spin"></i>
+        	<span>Loading latest collusion ratios.</span>
+        </div>
+
+        <!-- left-hand navigation -->
+        <div class="box-list"></div>
+
+        <!-- content box -->
+        <div class="box-content">
+          <a class="ext-url" href="" target="_blank"><i class="fa fa-external-link"></i></a>
+          <h2></h2>
+          <h3></h3>
+          <div class="voters"></div>
+          <div class="stats"></div>
+        </div>
+
+      </div>
+
+      <div style="clear:both;"></div>
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="//algorithmia.com/v1/clients/js/algorithmia-0.2.0.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.1/mustache.min.js"></script>
+    <script type="text/javascript" src="js/collusion.js"></script>
+
+    <script id="post-button" type="text/x-mustache">
+      <a class="post-button" data-id="{{postId}}" href="">{{post.name}}</a>
+    </script>
+
+  </body>
+</html>

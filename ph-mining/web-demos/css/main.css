@@ -1,0 +1,144 @@
+/* Main */
+body
+{
+  font-family: 'Helvetica';
+  color: #444;
+}
+
+#container
+{
+  width: 600px;
+}
+
+.box
+{
+  border: solid 1px #9b59b6;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.box.hide
+{
+  display: none;
+}
+
+.box > h2
+{
+  background-color: #9b59b6;
+  padding: 8px;
+  color: #FFF;
+  font-size: 18px;
+}
+
+.box .box-list
+{
+  float: left;
+  width: 200px;
+  height: 250px;
+  overflow-y: scroll;
+}
+
+.box .box-list a
+{
+  display: block;
+  padding: 8px;
+  text-decoration: none;
+  color: #3498db;
+  font-size: 14px;
+}
+
+.box .box-list a:hover
+{
+  background-color: #EEE;
+}
+
+.box .box-content
+{
+  position: relative;
+  float: left;
+  width: 375px;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 180%;
+  overflow-y: hidden;
+  height: 230px;
+  border-left: solid 1px #CCC;
+}
+
+.box .ext-url
+{
+  position: relative;
+  float: right;
+  font-size: 24px;
+  color: #CCC;
+}
+
+.box .box-content h2
+{
+  font-size: 20px;
+  color: #9b59b6;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+
+.box .box-content h3
+{
+  font-size: 12px;
+  color: #34495e;
+  font-weight: normal;
+  border-bottom: dotted 1px #CCC;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+
+.box .box-content ul
+{
+  list-style: disc;
+  margin-left: 50px;
+}
+
+.box .box-content ul a
+{
+  text-decoration: none;
+  color: #3498db;
+}
+
+.demo-loading
+{
+  display: block;
+  position: absolute;
+  width: 598px;
+  height: 250px;
+  border-radius: 5px;
+  background-color: #FFF;
+  text-align: center;
+  z-index: 1000;
+}
+
+.demo-loading i
+{
+  margin-top: 100px;
+  font-size: 40px;
+  color: #CCC;
+}
+
+.demo-loading span
+{
+  display: block;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #CCC;
+}
+
+.box .details
+{
+  padding: 10px;
+}
+
+.box h3
+{
+  color: #666;
+  font-size: 16px;
+  letter-spacing: 1px;
+}

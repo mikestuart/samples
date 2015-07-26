@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Mining Product Hunt - Recommendation Demo</title>
+    
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/recommendation.css">
+    
+  </head>
+  <body>
+
+    <div id="container">
+
+      <div id="demo" class="box">
+        <h2>Product Recommendations</h2>
+
+        <!-- loading screen -->
+        <div class="demo-loading">
+        	<i class="fa fa-cog fa-spin"></i>
+        	<span>Loading recommendations from Algorithmia.</span>
+        </div>
+
+        <!-- left-hand navigation -->
+        <div class="box-list"></div>
+
+        <!-- content box -->
+        <div class="box-content">
+          <a class="ext-url" href="" target="_blank"><i class="fa fa-external-link"></i></a>
+          <h2></h2>
+          <h3></h3>
+          <p>Other people have also liked:</p>
+          <ul></ul>
+        </div>
+
+      </div>
+
+      <div style="clear:both;"></div>
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="//algorithmia.com/v1/clients/js/algorithmia-0.2.0.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.1/mustache.min.js"></script>
+    <script type="text/javascript" src="js/recommendation.js"></script>
+
+    <script id="post-button" type="text/x-mustache">
+      <a class="post-button" data-id="{{id}}" href="">{{shortName}}</a>
+    </script>
+
+  </body>
+</html>

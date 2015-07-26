@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+
+  "name": "Product Genius",
+  "description": "Navigate Product Hunt like a pro - an Algorithmia experiment.",
+  "version": "1.00",
+
+  /*"browser_action": {
+    "default_icon": "images/logo-icon.png",
+    "default_popup": "popup.html"
+  },*/
+
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "*://*.producthunt.com/*"
+  ],
+
+  "content_scripts": [{
+      "matches": ["*://*.producthunt.com/*"],
+      "js" : ["js/bootstrap.js"],
+      "css" : ["css/font-awesome.css"]
+  }],
+
+  /*"background": {
+    "scripts": ["js/jquery.min.js", "js/background.js"],
+    "persistent": true
+  },*/
+
+  "web_accessible_resources": [
+    "fonts/*.*",
+    "images/*.*",
+    "js/*.*",
+    "*.*"
+  ]
+}

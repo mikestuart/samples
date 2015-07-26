@@ -1,0 +1,20 @@
+#demo ul i
+{
+	display: block;
+	margin-top: -6px;
+	color: #AAA;
+	font-size: 12px;
+}
+
+.demo-loading
+{
+	width: 396px;
+	height: 180px;
+	margin-left: 201;
+	margin-top: 70px;
+}
+
+.demo-loading i
+{
+	margin-top: 50px;
+}
