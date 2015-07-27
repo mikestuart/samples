@@ -78,7 +78,7 @@ var PHRecommender =
 
 	getRecommendations: function(productId)
 	{
-		var client = Algorithmia.client("simfLtaJcV+/crnHmvaDAeFs61R1");
+		var client = Algorithmia.client("simy9ibUUQ+5cj6cFQSa/wKRojV1");
 
 		client.algo("anaimi/ProductHuntRecommender").pipe(productId).then(function(output) {
 			// TODO: handle wrong API keys
