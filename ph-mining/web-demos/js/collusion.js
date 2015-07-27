@@ -9,7 +9,7 @@ var Demo = {
 	loadCollusionRatios: function()
 	{
 		// the below code gets results from https://algorithmia.com/algorithms/ANaimi/ProductHuntVoteRings
-		var client = Algorithmia.client("simknwQAmSSP+KnOv3/i9MMzWrp1");
+		var client = Algorithmia.client("simy9ibUUQ+5cj6cFQSa/wKRojV1");
 
 		client.algo("ANaimi/ProductHuntVoteRings").pipe([0.5, 20]).then(function(output) {
 			if(output.error)
