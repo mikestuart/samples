@@ -9,10 +9,7 @@ This algorithm uses Google, Bing, DuckDuckGo, Facebook, Twitter and Wikipedia to
 <script>
 var input = "John Doe";
 var api_key = "YOUR_API_KEY";
-Algorithmia.query("/nus/SearchEngineAggregator", api_key, input, function(err, result) {
-  if(err) return console.log("error: " + err);
-  console.log(result);
-});
+Algorithmia.client(api_key).algo("algo://nus/SearchEngineAggregator").pipe(input).then(console.log);
 </script>
 ```
 
